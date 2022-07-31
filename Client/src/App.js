@@ -1,10 +1,10 @@
 import React from 'react';
 import { StreamChat } from 'stream-chat';
-import {Chat} from 'stream-chat-react';
+import {ChannelSearch, Chat} from 'stream-chat-react';
 import Cookies from 'universal-cookie';
 
 
-import {ChannelContainer , ChannelListContainer } from './Containers';
+import {ChannelContainer , ChannelListContainer } from './Components';
 import './App.css';
 const apiKey='fa7hhya3trgk';
 const client=StreamChat.getInstance(apiKey);
@@ -16,6 +16,7 @@ function App() {
         />
         <ChannelContainer
         />
+        
 
       </Chat>
       
