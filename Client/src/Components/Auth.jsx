@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Cookies from 'universal-cookie';
+import cookies from 'universal-cookie';
 import axios from 'axios';
 
 import signinImage from '../assets/signup.jpg';
@@ -15,16 +15,45 @@ const initialState ={
 const Auth = () => {
     const [form, setForm] =useState();
     const [isSignup, setIsSignup] = useState(true);
-    const handleChange = ()=>{}
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    }
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
     }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log(form);
+        const { username, password, phoneNumber, avatarURL } = form;
+
+        const URL = 'https://localhost:5000/auth';
+        // const URL = 'https://medical-pager.herokuapp.com/auth';
+
+        const { data: { token, userId, hashedPassword, fullName } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
+            username, password, fullName: form.fullName, phoneNumber, avatarURL,
+        });
+
+        cookies.set('token', token);
+        cookies.set('username', username);
+        cookies.set('fullName', fullName);
+        cookies.set('userId', userId);
+
+        if(isSignup) {
+            cookies.set('phoneNumber', phoneNumber);
+            cookies.set('avatarURL', avatarURL);
+            cookies.set('hashedPassword', hashedPassword);
+        }
+
+        window.location.reload();
+    }
+
     return ( 
         <div className="auth__form-container">
             <div className="auth__form-container_fields">
                 <div className="auth__form-container_fields-content">
                     <p>{isSignup ? 'Sign Up' : 'Sign In'}</p>
-                    <form onSubmit={()=>{}}>
+                    <form onSubmit={handleSubmit}>
                         {isSignup && (
                             <div className="auth__form-container_fields-content_input">
                                 <label htmlFor="fullName">Full Name</label>
