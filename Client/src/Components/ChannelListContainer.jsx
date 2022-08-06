@@ -43,6 +43,35 @@ const ChannelListContainer = () => {
                                 
                             />
                         )}
+                        Preview={(previewProps) => (
+                            <TeamChannelPreview 
+                                {...previewProps}
+                                // setIsCreating={setIsCreating}
+                                // setIsEditing={setIsEditing}
+                                // setToggleContainer={setToggleContainer}
+                                type="team"
+                            />
+                        )}
+                    />
+                    <ChannelList 
+                        filters={{}}
+                        channelRenderFilterFn={() =>{}}
+                        List={(listProps) => (
+                            <TeamChannelList 
+                                {...listProps}
+                                type="messaging"
+                                
+                            />
+                        )}
+                        Preview={(previewProps) => (
+                            <TeamChannelPreview 
+                                {...previewProps}
+                                // setIsCreating={setIsCreating}
+                                // setIsEditing={setIsEditing}
+                                // setToggleContainer={setToggleContainer}
+                                type="messaging"
+                            />
+                        )}
                     />
                 </div>
             </div>
