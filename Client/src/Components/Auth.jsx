@@ -3,6 +3,8 @@ import cookies from 'universal-cookie';
 import axios from 'axios';
 
 import signinImage from '../assets/signup.jpg';
+// const cookies = new Cookies();
+
 const initialState ={
     fullName: '',
     username: '',
